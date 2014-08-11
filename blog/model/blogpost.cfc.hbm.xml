@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<!--
+source:C:\RailoServer\webapps\blog\blog\model\blogpost.cfc
+compilation-time:{ts '2014-08-11 18:08:35'}
+-->
+<class entity-name="blogpost" lazy="true" node="blog.model.blogpost" schema="example" table="blogpost">
+<id name="blogpostID" type="integer">
+<column name="blogpostID"/>
+<generator class="native"/>
+</id>
+<property name="title" type="string">
+<column name="title"/>
+</property>
+<property name="subtitle" type="string">
+<column name="subtitle"/>
+</property>
+<property name="context" type="text">
+<column name="context"/>
+</property>
+<property name="status" type="integer">
+<column name="status"/>
+</property>
+<property name="created" type="timestamp">
+<column name="created"/>
+</property>
+<property name="updated" type="timestamp">
+<column name="updated"/>
+</property>
+<property name="updatedby" type="string">
+<column length="150" name="updatedby"/>
+</property>
+<many-to-one column="userID" entity-name="user" name="userID"/>
+<bag name="comments">
+<key column="blogpostID"/>
+<one-to-many entity-name="blogcomment"/>
+</bag>
+<bag name="categories" schema="example" table="blogpost_category">
+<key column="blogpostID"/>
+<many-to-many column="categoryID" entity-name="category"/>
+</bag>
+</class>
+</hibernate-mapping>

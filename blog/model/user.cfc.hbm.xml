@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<!--
+source:C:\RailoServer\webapps\blog\blog\model\user.cfc
+compilation-time:{ts '2014-08-11 18:08:35'}
+-->
+<class entity-name="user" lazy="true" node="blog.model.user" schema="example" table="`user`">
+<id name="userID" type="integer">
+<column name="userID"/>
+<generator class="native"/>
+</id>
+<property name="image" type="string">
+<column name="image"/>
+</property>
+<property name="password" type="string">
+<column length="65" name="password"/>
+</property>
+<property name="fullname" type="string">
+<column length="50" name="fullname"/>
+</property>
+<property name="email" type="string">
+<column length="150" name="email"/>
+</property>
+<property name="address" type="string">
+<column length="150" name="address"/>
+</property>
+<property name="phone" type="string">
+<column length="50" name="phone"/>
+</property>
+<property name="created" type="timestamp">
+<column name="created"/>
+</property>
+<property name="updated" type="timestamp">
+<column name="updated"/>
+</property>
+<bag name="blogposts">
+<key column="userID"/>
+<one-to-many entity-name="blogpost"/>
+</bag>
+</class>
+</hibernate-mapping>

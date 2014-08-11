@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<!--
+source:C:\RailoServer\webapps\blog\blog\model\blogcomment.cfc
+compilation-time:{ts '2014-08-11 18:08:35'}
+-->
+<class entity-name="blogcomment" lazy="true" node="blog.model.blogcomment" schema="example" table="blogcomment">
+<id name="commentID" type="integer">
+<column name="commentID"/>
+<generator class="native"/>
+</id>
+<property name="context" type="text">
+<column name="context"/>
+</property>
+<property name="username" type="string">
+<column length="150" name="username"/>
+</property>
+<property name="email" type="string">
+<column length="150" name="email"/>
+</property>
+<property name="created" type="timestamp">
+<column name="created"/>
+</property>
+<many-to-one column="blogpostID" entity-name="blogpost" name="blogpostID"/>
+</class>
+</hibernate-mapping>
