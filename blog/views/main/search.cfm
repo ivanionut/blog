@@ -3,7 +3,6 @@
 	function onClick()
 	{
 	    var valueSearch = document.getElementById('keysearch');
-	    alert(valueSearch.value);
 	    window.location="/index.cfm?keysearch=" + valueSearch.value;
 	}
 </script>

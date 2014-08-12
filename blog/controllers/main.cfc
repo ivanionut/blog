@@ -14,7 +14,7 @@ component output="false" displayname=""  {
 			conditionquery = " and us.userID = #rc.userid# ";
 		}
 		if(StructKeyExists(rc,"keysearch")){
-			conditionquery = " and bp.title like '%#rc.keysearch#%' ";
+			conditionquery = " and (bp.title like '%#rc.keysearch#%' or bp.context like '%#rc.keysearch#%') ";
 		}
 		rc.listpostes = QueryExecute("SELECT bp.*,us.userID, us.fullname, numofcomment, numofcategory, bcc.listcategorynames, bcc.listcategoryids FROM blogpost bp LEFT JOIN (SELECT COUNT(commentID) AS numofcomment, blogpostID FROM blogcomment GROUP BY blogpostID) bgc ON bgc.blogpostID = bp.blogpostID INNER JOIN ( SELECT bc.blogpostID,bc.categoryID, GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames,GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory FROM category c inner join blogpost_category bc on bc.categoryID = c.categoryID GROUP BY bc.blogpostID)bcc ON bcc.blogpostID = bp.blogpostID, user us WHERE bp.userID = us.userID" & conditionquery &" ORDER BY bp.status DESC, bp.created DESC ");
 	}
