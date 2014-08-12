@@ -13,6 +13,9 @@ component output="false" displayname=""  {
 		if(StructKeyExists(rc,"userid") and (LSParseNumber(rc.userid) > 0)){
 			conditionquery = " and us.userID = #rc.userid# ";
 		}
+		if(StructKeyExists(rc,"keysearch")){
+			conditionquery = " and bp.title like '%#rc.keysearch#%' ";
+		}
 		rc.listpostes = QueryExecute("SELECT bp.*,us.userID, us.fullname, numofcomment, numofcategory, bcc.listcategorynames, bcc.listcategoryids FROM blogpost bp LEFT JOIN (SELECT COUNT(commentID) AS numofcomment, blogpostID FROM blogcomment GROUP BY blogpostID) bgc ON bgc.blogpostID = bp.blogpostID INNER JOIN ( SELECT bc.blogpostID,bc.categoryID, GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames,GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory FROM category c inner join blogpost_category bc on bc.categoryID = c.categoryID GROUP BY bc.blogpostID)bcc ON bcc.blogpostID = bp.blogpostID, user us WHERE bp.userID = us.userID" & conditionquery &" ORDER BY bp.status DESC, bp.created DESC ");
 	}
 	
@@ -131,14 +134,8 @@ component output="false" displayname=""  {
 	
 	function search(struct rc) {
 		if(CGI.REQUEST_METHOD == "post"){
-			kq = QueryExecute("SELECT bp.*,us.fullname,us.image, numofcomment, numofcategory, bcc.listcategorynames, bcc.listcategoryids FROM blogpost bp LEFT JOIN (SELECT COUNT(commentID) AS numofcomment, blogpostID FROM blogcomment GROUP BY blogpostID) bgc ON bgc.blogpostID = bp.blogpostID INNER JOIN ( SELECT bc.blogpostID,GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames, GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory FROM category c INNER JOIN blogpost_category bc ON bc.categoryID = c.categoryID GROUP BY bc.blogpostID)bcc ON bcc.blogpostID = bp.blogpostID, user us WHERE bp.userID = us.userID ");
-			writeDump(kq);
-			abort;
-			/* SELECT blogpostID 
-FROM blogpost
-WHERE MATCH (title) AGAINST ('query') */
+			VARIABLES.fw.Redirect("main.default?keysearch=#rc.conditionsearch#");
 		}
 	}
-	
-	
+
 }
