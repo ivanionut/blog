@@ -64,7 +64,7 @@
 							<a href="#rc.main_page#?page=#i#">#i#</a>
 						</li>
 					<cfelse>
-					<li>
+					<li class="disabled">
 						<a href="#rc.main_page#?page=#i#">#i#</a>
 					</li>
 					</cfif>
