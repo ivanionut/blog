@@ -16,7 +16,35 @@ component output="false" displayname=""  {
 		if(StructKeyExists(rc,"keysearch")){
 			conditionquery = " and (bp.title like '%#rc.keysearch#%' or bp.context like '%#rc.keysearch#%') ";
 		}
-		rc.listpostes = QueryExecute("SELECT bp.*,us.userID, us.fullname, numofcomment, numofcategory, bcc.listcategorynames, bcc.listcategoryids FROM blogpost bp LEFT JOIN (SELECT COUNT(commentID) AS numofcomment, blogpostID FROM blogcomment GROUP BY blogpostID) bgc ON bgc.blogpostID = bp.blogpostID INNER JOIN ( SELECT bc.blogpostID,bc.categoryID, GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames,GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory FROM category c inner join blogpost_category bc on bc.categoryID = c.categoryID GROUP BY bc.blogpostID)bcc ON bcc.blogpostID = bp.blogpostID, user us WHERE bp.userID = us.userID" & conditionquery &" ORDER BY bp.status DESC, bp.created DESC ");
+
+		param name="URL.page"  default= 1 ;
+		param name="rc.main_page"  default= "" ;
+		param name="rc.limit"  default= 5 ;
+		rc.idpage = (URL.page -1)*rc.limit;
+
+		rc.count=QueryExecute("select count(*) as countblog from blogpost");
+		var no=0;
+		if(isnull(rc.count)){
+		 	no=0
+		}
+		else{
+		 	no=rc.count.countblog[1];
+		}
+		rc.sum_column= not isnull(rc.count) ?ceiling(no/rc.limit):0 ;
+		//rc.listpostes_limit=QueryExecute("select * from blogpost order by created desc limit "& rc.idpage &","&rc.limit);
+		
+		rc.listpostes = QueryExecute(
+			"SELECT bp.*,us.userID, us.fullname, numofcomment, numofcategory, bcc.listcategorynames, bcc.listcategoryids 
+			FROM blogpost bp LEFT JOIN (SELECT COUNT(commentID) AS numofcomment, blogpostID 
+				FROM blogcomment GROUP BY blogpostID) bgc ON bgc.blogpostID = bp.blogpostID 
+		INNER JOIN ( SELECT bc.blogpostID,bc.categoryID, 
+			GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames,
+			GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory 
+			FROM category c inner join blogpost_category bc on bc.categoryID = c.categoryID GROUP BY bc.blogpostID)bcc 
+		ON bcc.blogpostID = bp.blogpostID, user us 
+		WHERE bp.userID = us.userID"& conditionquery &" 
+		ORDER BY bp.status DESC, bp.created DESC limit "& rc.idpage &","& rc.limit);
+
 	}
 	
 	function login(struct rc) {

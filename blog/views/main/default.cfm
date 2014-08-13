@@ -1,5 +1,23 @@
+
 <cfset listpostes = rc.listpostes>
 <cfoutput>
+	<script type="text/javascript">
+	//check paging
+	function checkPrev(){
+    	var search= window.location.search;
+    	var temp=search.split("page=");
+    	var result= temp[1];
+    	return result>1;
+    }
+    function checkNext(totalPage){
+    	var search= window.location.search;
+    	var temp=search.split("page=");
+    	var result= temp[1];
+    	if(result==0)
+    		return result>1;
+    	return result<totalPage;
+    }
+</script>
 	<cfloop query="listpostes">
 		<cfset arraycategorynames = ListToArray(listcategorynames)>
 		<cfset arraycategoryids = ListToArray(listcategoryids)>
@@ -36,4 +54,23 @@
 	    </article>
 	    <div class="blog-divider"></div>
 	</cfloop>
+	<ul class="pager">
+	            <li class="previous">
+	            	<a href="#rc.main_page#?page=#URL.page-1#" onclick="return checkPrev()">&larr; Older</a>
+	        	</li>
+	            <cfloop from="1" to="#rc.sum_column#" index="i">			
+					<cfif i eq URL.page>
+						<li class="active">
+							<a href="#rc.main_page#?page=#i#">#i#</a>
+						</li>
+					<cfelse>
+					<li>
+						<a href="#rc.main_page#?page=#i#">#i#</a>
+					</li>
+					</cfif>
+				</cfloop>
+	            <li class="next">
+	            	<a href="#rc.main_page#?page=#URL.page+1#" onclick="return checkNext(#rc.sum_column#)">Newer &rarr;</a>
+	            </li>
+    </ul>
 </cfoutput>
