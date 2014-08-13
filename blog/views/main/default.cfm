@@ -61,11 +61,21 @@
 	            <cfloop from="1" to="#rc.sum_column#" index="i">			
 					<cfif i eq URL.page>
 						<li class="active">
-							<a href="#rc.main_page#?page=#i#">#i#</a>
+							<cfif not isNull(rc.categoryid)>
+						        <a href="#rc.main_page#?page=#i#&categoryid=#rc.categoryid#">#i#</a>
+						    <cfelse>
+						    	<a href="#rc.main_page#?page=#i#">#i#</a>
+						    </cfif>
+
+
 						</li>
 					<cfelse>
 					<li class="disabled">
-						<a href="#rc.main_page#?page=#i#">#i#</a>
+						<cfif not isNull(rc.categoryid)>
+						        <a href="#rc.main_page#?page=#i#&categoryid=#rc.categoryid#">#i#</a>
+						    <cfelse>
+						    	<a href="#rc.main_page#?page=#i#">#i#</a>
+						    </cfif>
 					</li>
 					</cfif>
 				</cfloop>

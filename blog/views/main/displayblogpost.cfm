@@ -26,9 +26,9 @@
             </header>
             <div class="post-content">
                 <code> #blogposted.context#</code>
-                <cfif not isNull(blogposted.updated)>
+               <!---  <cfif not isNull(blogposted.updated)>
                     The last updated is #MonthAsString(Month(blogposted.updated))# , #Day(blogposted.updated)# #Year(blogposted.updated)# - #TimeFormat(blogposted.updated, "HH:mm:ss tt")# by <a href="/index.cfm/?userid=#blogposted.blogpostID#" class="blog-entry-meta-author">#blogposted.updatedby#</a>
-                </cfif>
+                </cfif> --->
             </div>
             <footer class="post-footer">
                 <div class="blog-divider"></div>

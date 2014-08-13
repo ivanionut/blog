@@ -22,7 +22,17 @@ component output="false" displayname=""  {
 		param name="rc.limit"  default= 5 ;
 		rc.idpage = (URL.page -1)*rc.limit;
 
-		rc.count=QueryExecute("select count(*) as countblog from blogpost");
+		rc.count=QueryExecute(
+			"SELECT count(*) as countblog
+			FROM blogpost bp LEFT JOIN (SELECT COUNT(commentID) AS numofcomment, blogpostID 
+				FROM blogcomment GROUP BY blogpostID) bgc ON bgc.blogpostID = bp.blogpostID 
+		INNER JOIN ( SELECT bc.blogpostID,bc.categoryID, 
+			GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames,
+			GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory 
+			FROM category c inner join blogpost_category bc on bc.categoryID = c.categoryID GROUP BY bc.blogpostID)bcc 
+		ON bcc.blogpostID = bp.blogpostID, user us 
+		WHERE bp.userID = us.userID"& conditionquery &" 
+		ORDER BY bp.status DESC, bp.created DESC");
 		var no=0;
 		if(isnull(rc.count)){
 		 	no=0
