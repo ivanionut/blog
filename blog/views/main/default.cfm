@@ -6,7 +6,8 @@
 	function checkPrev(){
     	var search= window.location.search;
     	var temp=search.split("page=");
-    	var result= temp[1];
+    	var temp2=temp.split()"&";
+    	var result= temp2[0];
     	return result>1;
     }
     function checkNext(totalPage){
