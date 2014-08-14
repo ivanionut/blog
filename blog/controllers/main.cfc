@@ -26,13 +26,15 @@ component output="false" displayname=""  {
 			"SELECT count(*) as countblog
 			FROM blogpost bp LEFT JOIN (SELECT COUNT(commentID) AS numofcomment, blogpostID 
 				FROM blogcomment GROUP BY blogpostID) bgc ON bgc.blogpostID = bp.blogpostID 
-		INNER JOIN ( SELECT bc.blogpostID,bc.categoryID, 
-			GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames,
-			GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory 
-			FROM category c inner join blogpost_category bc on bc.categoryID = c.categoryID GROUP BY bc.blogpostID)bcc 
+				INNER JOIN ( SELECT bc.blogpostID,bc.categoryID, 
+		GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames,
+		GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory 
+		FROM category c inner join blogpost_category bc on bc.categoryID = c.categoryID 
+		GROUP BY bc.blogpostID)bcc 
 		ON bcc.blogpostID = bp.blogpostID, user us 
 		WHERE bp.userID = us.userID"& conditionquery &" 
 		ORDER BY bp.status DESC, bp.created DESC");
+
 		var no=0;
 		if(isnull(rc.count)){
 		 	no=0
@@ -41,19 +43,19 @@ component output="false" displayname=""  {
 		 	no=rc.count.countblog[1];
 		}
 		rc.sum_column= not isnull(rc.count) ?ceiling(no/rc.limit):0 ;
-		//rc.listpostes_limit=QueryExecute("select * from blogpost order by created desc limit "& rc.idpage &","&rc.limit);
 		
 		rc.listpostes = QueryExecute(
 			"SELECT bp.*,us.userID, us.fullname, numofcomment, numofcategory, bcc.listcategorynames, bcc.listcategoryids 
 			FROM blogpost bp LEFT JOIN (SELECT COUNT(commentID) AS numofcomment, blogpostID 
 				FROM blogcomment GROUP BY blogpostID) bgc ON bgc.blogpostID = bp.blogpostID 
 		INNER JOIN ( SELECT bc.blogpostID,bc.categoryID, 
-			GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames,
-			GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory 
-			FROM category c inner join blogpost_category bc on bc.categoryID = c.categoryID GROUP BY bc.blogpostID)bcc 
+		GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames,
+		GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory 
+			FROM category c inner join blogpost_category bc on bc.categoryID = c.categoryID 
+			GROUP BY bc.blogpostID) bcc 
 		ON bcc.blogpostID = bp.blogpostID, user us 
 		WHERE bp.userID = us.userID"& conditionquery &" 
-		ORDER BY bp.status DESC, bp.created DESC limit "& rc.idpage &","& rc.limit);
+		ORDER BY bp.status , bp.updated desc, bp.created desc limit "& rc.idpage &","& rc.limit);
 
 	}
 	
@@ -64,8 +66,8 @@ component output="false" displayname=""  {
 				SESSION.bloggerName = theUser.fullname;
 				SESSION.BloggerID = theUser.userID;
 				SESSION.isLoggedIn = true;
-				var messages = "Login success! Wellcome";
-				variables.fw.redirect("main.default","messages");
+				var messages = "Login success! Welcome";
+				variables.fw.redirect("main.default",messages);
 			}else{
 				rc.messages = "Login failure! Please check your login account";
 			}
@@ -75,7 +77,8 @@ component output="false" displayname=""  {
 	function logout(struct rc) {
 		structClear(SESSION);
 		SESSION.isLoggedIn = false;
-		return;
+		var messages = "Login success! Welcome";
+		variables.fw.redirect("main.default",messages);
 	}
 	
 
@@ -138,7 +141,15 @@ component output="false" displayname=""  {
 	}
 
 	function loadPost(required string blogpostid) {
-		return rc.blogposted = QueryExecute("SELECT bp.*,us.fullname,us.image, numofcomment, numofcategory, bcc.listcategorynames, bcc.listcategoryids FROM blogpost bp LEFT JOIN (SELECT COUNT(commentID) AS numofcomment, blogpostID FROM blogcomment GROUP BY blogpostID) bgc ON bgc.blogpostID = bp.blogpostID INNER JOIN ( SELECT bc.blogpostID,GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames, GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory FROM category c INNER JOIN blogpost_category bc ON bc.categoryID = c.categoryID GROUP BY bc.blogpostID)bcc ON bcc.blogpostID = bp.blogpostID, user us WHERE bp.userID = us.userID and bp.blogpostID = "&LSParseNumber(blogpostid));
+		return rc.blogposted = QueryExecute(
+			"SELECT bp.*,us.fullname,us.image, numofcomment, numofcategory, bcc.listcategorynames, bcc.listcategoryids 
+			FROM blogpost bp LEFT JOIN (SELECT COUNT(commentID) AS numofcomment, blogpostID 
+				FROM blogcomment GROUP BY blogpostID) bgc ON bgc.blogpostID = bp.blogpostID 
+		INNER JOIN ( SELECT bc.blogpostID,GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames, 
+			GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory 
+			FROM category c INNER JOIN blogpost_category bc ON bc.categoryID = c.categoryID 
+			GROUP BY bc.blogpostID)bcc ON bcc.blogpostID = bp.blogpostID, user us 
+		WHERE bp.userID = us.userID and bp.blogpostID = "&LSParseNumber(blogpostid));
 	}
 
 

@@ -66,8 +66,6 @@
 						    <cfelse>
 						    	<a href="#rc.main_page#?page=#i#">#i#</a>
 						    </cfif>
-
-
 						</li>
 					<cfelse>
 					<li class="disabled">

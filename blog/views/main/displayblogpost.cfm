@@ -1,6 +1,8 @@
 <cfoutput>
     <div class="posts-block col-lg-9 col-md-9 col-sm-8 col-xs-12 bottom-pad">
         <cfset blogposted = rc.blogposted>
+        <!--- <cfdump eval=blogposted>
+        <cfabort> --->
         <cfset arraycategorynames = ListToArray(blogposted.listcategorynames)>
         <cfset arraycategoryids = ListToArray(blogposted.listcategoryids)>
         <article class="post hentry">
@@ -26,9 +28,9 @@
             </header>
             <div class="post-content">
                 <code> #blogposted.context#</code>
-               <!---  <cfif not isNull(blogposted.updated)>
+                <cfif TimeFormat(blogposted.updated,"HH:mm:ss tt") gt 0>
                     The last updated is #MonthAsString(Month(blogposted.updated))# , #Day(blogposted.updated)# #Year(blogposted.updated)# - #TimeFormat(blogposted.updated, "HH:mm:ss tt")# by <a href="/index.cfm/?userid=#blogposted.blogpostID#" class="blog-entry-meta-author">#blogposted.updatedby#</a>
-                </cfif> --->
+                </cfif>
             </div>
             <footer class="post-footer">
                 <div class="blog-divider"></div>
