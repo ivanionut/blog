@@ -56,7 +56,11 @@
 	</cfloop>
 	<ul class="pager">
 	            <li class="previous">
-	            	<a href="#rc.main_page#?page=#URL.page-1#" onclick="return checkPrev()">&larr; Older</a>
+	            	<cfif not isNull(rc.categoryid)>
+						<a href="#rc.main_page#?page=#URL.page-1#&categoryid=#rc.categoryid#" onclick="return checkPrev()">&larr; Older</a>
+					<cfelse>
+						<a href="#rc.main_page#?page=#URL.page-1#" onclick="return checkPrev()">&larr; Older</a>
+					</cfif>
 	        	</li>
 	            <cfloop from="1" to="#rc.sum_column#" index="i">			
 					<cfif i eq URL.page>
