@@ -4,16 +4,31 @@
 	<script type="text/javascript">
 	//check paging
 	function checkPrev(){
-    	var search= window.location.search;
-    	var temp=search.split("page=");
-    	var temp2=temp.split("&");
-    	var result= temp2[0];
-    	return result>1;
+     var search= window.location.search;
+     var temp=search.split("page=");
+     if(temp.length > 1)
+     {
+      var temp2=temp[1].split("&");
+      if(temp2.length > 1)
+      {
+       var result= temp2[0];
+       return result>1;
+      }else
+      {
+    var result= temp[1];
+    return result>1;
+      }
+     }else
+     {
+      return false
+     } 
     }
+
     function checkNext(totalPage){
     	var search= window.location.search;
     	var temp=search.split("page=");
-    	var result= temp[1];
+    	var temp2=temp[1].split("&");
+    	var result= temp2[0];
     	if(result==0)
     		return result>1;
     	return result<totalPage;
@@ -58,9 +73,9 @@
 	<ul class="pager">
 	            <li class="previous">
 	            	<cfif not isNull(rc.categoryid)>
-						<a href="#rc.main_page#?page=#URL.page-1#&categoryid=#rc.categoryid#" onclick="return checkPrev()">&larr; Older</a>
+						<a href="#rc.main_page#?page=#URL.page-1#&categoryid=#rc.categoryid#" onclick="return checkPrev()">&larr; Newer</a>
 					<cfelse>
-						<a href="#rc.main_page#?page=#URL.page-1#" onclick="return checkPrev()">&larr; Older</a>
+						<a href="#rc.main_page#?page=#URL.page-1#" onclick="return checkPrev()">&larr; Newer</a>
 					</cfif>
 	        	</li>
 	            <cfloop from="1" to="#rc.sum_column#" index="i">			
@@ -77,13 +92,18 @@
 						<cfif not isNull(rc.categoryid)>
 						        <a href="#rc.main_page#?page=#i#&categoryid=#rc.categoryid#">#i#</a>
 						    <cfelse>
-						    	<a href="#rc.main_page#?page=#i#">#i#</a>
+						    <a href="#rc.main_page#?page=#i#">#i#</a>
 						    </cfif>
 					</li>
 					</cfif>
 				</cfloop>
 	            <li class="next">
-	            	<a href="#rc.main_page#?page=#URL.page+1#" onclick="return checkNext(#rc.sum_column#)">Newer &rarr;</a>
+
+	            	<cfif not isNull(rc.categoryid)>
+						<a href="#rc.main_page#?page=#URL.page+1#&categoryid=#rc.categoryid#" onclick="return checkNext(#rc.sum_column#)">Older &rarr;</a>
+					<cfelse>
+						<a href="#rc.main_page#?page=#URL.page+1#" onclick="return checkNext(#rc.sum_column#)">Older &rarr;</a>
+					</cfif>
 	            </li>
     </ul>
 </cfoutput>

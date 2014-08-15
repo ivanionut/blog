@@ -21,7 +21,7 @@ component output="false" displayname=""  {
 		param name="rc.main_page"  default= "" ;
 		param name="rc.limit"  default= 5 ;
 		rc.idpage = (URL.page -1)*rc.limit;
-
+		
 		rc.count=QueryExecute(
 			"SELECT count(*) as countblog
 			FROM blogpost bp LEFT JOIN (SELECT COUNT(commentID) AS numofcomment, blogpostID 
@@ -56,7 +56,6 @@ component output="false" displayname=""  {
 		ON bcc.blogpostID = bp.blogpostID, user us 
 		WHERE bp.userID = us.userID"& conditionquery &" 
 		ORDER BY bp.status , bp.updated desc, bp.created desc limit "& rc.idpage &","& rc.limit);
-
 	}
 	
 	function login(struct rc) {
