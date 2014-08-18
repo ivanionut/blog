@@ -3,6 +3,7 @@ component persistent="true" table="blogpost" {
 	property name="title" ormtype="string";
 	property name="subtitle" ormtype="string";
 	property name="context" ormtype="text";
+	property name="description" ormtype="text" length="200";
 	property name="status" ormtype="integer";
 	property name="created" ormtype="timestamp";
 	property name="updated" ormtype="timestamp";

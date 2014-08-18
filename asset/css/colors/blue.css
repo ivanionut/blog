@@ -15,6 +15,7 @@ ul.why li:before,
 .cl-effect-21 .active a::after,
 .post-date a.date i, .service-icon i  {
     background: #2eaef0;
+    
 }
 
 .bg-color {
@@ -85,4 +86,5 @@ a, a:hover, a:focus,
 .btn-1:hover,
 .btn-1:active {
     color: #2eaef0;
+    
 }

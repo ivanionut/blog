@@ -128,10 +128,12 @@ component output="false" displayname=""  {
 				arrayAppend(arraylistcategorypostes, category);
 			}
 
+
 			blogpost.setCategories(arraylistcategorypostes);
 			blogpost.setTitle(rc.title);
 			blogpost.setSubtitle(rc.subtitle);
 			blogpost.setContext(rc.context);
+			blogpost.setDescription(rc.description);
 			blogpost.setUserID(entityLoadByPK("user",SESSION.BloggerID));
 			entitySave(blogpost);
 			var blogpostid = blogpost.blogpostID;

@@ -1,4 +1,4 @@
-		<!--- <ul class="pager">
+<!--- 		<ul class="pager">
             <li class="previous"><a href="/index.cfm/blogger.display/?postid=#blogPost.postid - 1#">&larr; Older</a></li>
             <li class="next"><a href="/index.cfm/blogger.display/?postid=#blogPost.postid + 1#">Newer &rarr;</a></li>
         </ul>
@@ -46,6 +46,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label>Name: <span>*</span></label>
                         <input class="form-control" type="text" id="name" name="name" required>
+                        
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label>Email: <span>*</span></label>

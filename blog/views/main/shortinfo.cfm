@@ -7,7 +7,10 @@
                 <img alt="" src="/asset/img/#userinfo.image#">
             </div>
             <div class="testimonial-author-info">
-                <a href="/index.cfm/?userid=#userinfo.userID#"><span class="color">#userinfo.fullname#</span></a>
+                <!--- <a href="/index.cfm/?userid=#userinfo.userID#"><span class="color">#userinfo.fullname#</span></a> --->
+                <a href="/index.cfm/?userid=#userinfo.userID#">
+                    <span class="color">#userinfo.fullname#</span>
+                </a>
             </div>
         </div>
         <!--- <div class="blog-entry-meta-comments">
@@ -17,7 +20,13 @@
         <cfif userinfo.numofpostes gt 0>
             <div class="blog-entry-meta-author">
                 <i class="fa fa-user"></i>
-                <a href="/index.cfm/?userid=#userinfo.userID#" class="blog-entry-meta-author"> #userinfo.numofpostes# <cfif userinfo.numofpostes eq 1>post<cfelse>posts</cfif></a>
+                <a href="/index.cfm/?userid=#userinfo.userID#" class="blog-entry-meta-author">
+                    #userinfo.numofpostes# 
+                    <cfif userinfo.numofpostes eq 1>
+                        post
+                    <cfelse>posts
+                    </cfif>
+                </a>
             </div>
         </cfif>
         <div class="blog-divider"></div>

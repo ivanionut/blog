@@ -1,4 +1,3 @@
-
 <cfset listpostes = rc.listpostes>
 <cfoutput>
 	<script type="text/javascript">
@@ -6,6 +5,7 @@
 	function checkPrev(){
      var search= window.location.search;
      var temp=search.split("page=");
+     
      if(temp.length > 1)
      {
       var temp2=temp[1].split("&");
@@ -33,6 +33,9 @@
     		return result>1;
     	return result<totalPage;
     }
+
+
+
 </script>
 	<cfloop query="listpostes">
 		<cfset arraycategorynames = ListToArray(listcategorynames)>
@@ -53,7 +56,9 @@
 	                <div class="blog-entry-meta-tags">
 	                    <i class="fa fa-tags"></i>
 	                    <cfloop index="i" from="1" to="#numofcategory#">
-	                        <a href="/index.cfm/?categoryid=#arraycategoryids[i]#">#arraycategorynames[i]#</a><cfif (i lt (numofcategory))>, </cfif>
+	                        <a href="/index.cfm/?categoryid=#arraycategoryids[i]#">
+	                        	#arraycategorynames[i]#</a>
+	                        <cfif (i lt (numofcategory))>, </cfif>
 	                    </cfloop>
 	                </div>
 	                <cfif listpostes.numofcomment gt 0>
@@ -64,35 +69,50 @@
 	                </cfif>                
 	            </div>
 	        </header>
-	        <div class="post-content">
-	           <code> #listpostes.context#</code>
+	        <div class="post-content" >
+	            <code>#listpostes.context#</code>
 	        </div>
 	    </article>
 	    <div class="blog-divider"></div>
 	</cfloop>
 	<ul class="pager">
 	            <li class="previous">
-	            	<cfif not isNull(rc.categoryid)>
+
+
+	            	<cfif not isNull(rc.userid)>
+						<a href="#rc.main_page#?page=#URL.page-1#&userid=#rc.userid#"  onclick="return checkPrev()">&larr; Newer</a>
+						<cfelseif not isNull(rc.categoryid)>
+						    <a href="#rc.main_page#?page=#URL.page-1#&categoryid=#rc.categoryid#"  onclick="return checkPrev()">&larr; Newer</a>
+						    <cfelse>
+						    	<a href="#rc.main_page#?page=#URL.page-1#" onclick="return checkPrev()">&larr; Newer</a>
+					</cfif>
+
+
+	            	<!--- <cfif not isNull(rc.categoryid)>
 						<a href="#rc.main_page#?page=#URL.page-1#&categoryid=#rc.categoryid#" onclick="return checkPrev()">&larr; Newer</a>
 					<cfelse>
 						<a href="#rc.main_page#?page=#URL.page-1#" onclick="return checkPrev()">&larr; Newer</a>
-					</cfif>
+					</cfif> --->
 	        	</li>
 	            <cfloop from="1" to="#rc.sum_column#" index="i">			
 					<cfif i eq URL.page>
 						<li class="active">
-							<cfif not isNull(rc.categoryid)>
-						        <a href="#rc.main_page#?page=#i#&categoryid=#rc.categoryid#">#i#</a>
-						    <cfelse>
-						    	<a href="#rc.main_page#?page=#i#">#i#</a>
+							<cfif not isNull(rc.userid)>
+						        <a href="#rc.main_page#?page=#i#&userid=#rc.userid#">#i#</a>
+						    <cfelseif not isNull(rc.categoryid)>
+						    	 <a href="#rc.main_page#?page=#i#&categoryid=#rc.categoryid#">#i#</a>
+						    	 <cfelse>
+						    	 	 <a href="#rc.main_page#?page=#i#">#i#</a>
 						    </cfif>
 						</li>
 					<cfelse>
 					<li class="disabled">
-						<cfif not isNull(rc.categoryid)>
-						        <a href="#rc.main_page#?page=#i#&categoryid=#rc.categoryid#">#i#</a>
-						    <cfelse>
-						    <a href="#rc.main_page#?page=#i#">#i#</a>
+						<cfif not isNull(rc.userid)>
+						        <a href="#rc.main_page#?page=#i#&userid=#rc.userid#">#i#</a>
+						    <cfelseif not isNull(rc.categoryid)>
+						    	 <a href="#rc.main_page#?page=#i#&categoryid=#rc.categoryid#">#i#</a>
+						    	 <cfelse>
+						    	 	 <a href="#rc.main_page#?page=#i#">#i#</a>
 						    </cfif>
 					</li>
 					</cfif>

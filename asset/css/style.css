@@ -635,6 +635,7 @@ ul.text-slide {
 
 .navbar-nav > li > a:hover, .navbar-nav > li > a:focus, .navbar-nav > li.active > a {
     background-color: transparent;
+    text-decoration: underline;
 }
 
 ul.navbar-right {
@@ -790,7 +791,7 @@ nav a:focus {
 .cl-effect-21 .active a:focus::before,
 .cl-effect-21 .active a::after,
 .cl-effect-21 .active a:focus::after {
-    opacity: 1;
+    opacity: 0;
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);
     transform: translateY(0px);
@@ -1905,7 +1906,7 @@ a.scrollup:hover i,a.scrollup:focus i {
 
 
 .blog-divider {
-    margin:50px 0 70px;
+    margin:40px 0 10px;
     background-color: #D3D4D8;
     height: 1px;
 }
@@ -1927,8 +1928,8 @@ a.scrollup:hover i,a.scrollup:focus i {
     border-width: 1px 1px 3px;
     background: #fff;
     border-color:transparent;
-    padding: 20px;
-    margin-top: 30px;
+    padding-top: 5px;
+    margin-top: 5px;
 }
 
 .blog-entry-meta-author {
@@ -2000,6 +2001,7 @@ ol.commentlist, ol.commentlist li {
 .post-content {
     padding-bottom: 10px;
     padding-top: 5px;
+
 }
 
 .post-image img {
@@ -2169,6 +2171,7 @@ ol.commentlist, ol.commentlist li {
     border-radius: 100%;
 }
 
+
 .avatar img {
     border-radius: 100%;
 }
@@ -2214,7 +2217,7 @@ ol.commentlist li:first-child {
 
 .avatar img {
     float: left;
-    max-width: 70px;
+    max-width: 60px;
 }
 
 .comment-des p {
@@ -2227,7 +2230,7 @@ ol.commentlist li:first-child {
     background: #fff;
     color: #888;
     margin: -70px 0 0 100px;
-    padding: 19px 22px 22px;
+    padding: 6px 22px 22px;
 }
 
 
@@ -2566,3 +2569,4 @@ ol.commentlist li:first-child {
         padding-right: 30px !important;
     }
 }
+

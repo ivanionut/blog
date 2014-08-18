@@ -16,3 +16,12 @@ legend.loginform {
 .loginform .btn{
 	padding: 10px;
 }
+.site-logo img{
+    width: 90%;
+    height: 90%;
+}
+/*.post-content{
+    height: 250px;
+    overflow: hidden;
+}
+*/
