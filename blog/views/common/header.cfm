@@ -8,8 +8,8 @@
        <div class="col-md-2 mob-logo">
         <div class="row">
          <div class="site-logo">
-          <a href="/index.cfm" src="/asset/img/logo.png">
-            <img alt="/index.cfm" src="/asset/img/logo.png">
+          <a href="/index.cfm">
+            <img alt="/index.cfm" src="/asset/img/logo-rasia.png">
           </a>
           
         </div>

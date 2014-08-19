@@ -146,7 +146,7 @@ component output="false" displayname=""  {
 
 	function loadPost(required string blogpostid) {
 		return rc.blogposted = QueryExecute(
-			"SELECT bp.*,us.fullname,us.image, numofcomment, numofcategory, bcc.listcategorynames, bcc.listcategoryids 
+			"SELECT bp.*,us.fullname,us.image, us.email,numofcomment, numofcategory, bcc.listcategorynames, bcc.listcategoryids 
 			FROM blogpost bp LEFT JOIN (SELECT COUNT(commentID) AS numofcomment, blogpostID 
 				FROM blogcomment GROUP BY blogpostID) bgc ON bgc.blogpostID = bp.blogpostID 
 		INNER JOIN ( SELECT bc.blogpostID,GROUP_CONCAT(c.categoryname SEPARATOR ',') AS listcategorynames, 

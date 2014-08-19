@@ -5,6 +5,7 @@
         <cfabort> --->
         <cfset arraycategorynames = ListToArray(blogposted.listcategorynames)>
         <cfset arraycategoryids = ListToArray(blogposted.listcategoryids)>
+         
         <article class="post hentry">
             <header class="post-header">
                 <h3 class="content-title"><a href="/index.cfm/?blogpostid=#blogposted.blogpostID#">#blogposted.title#</a></h3>
@@ -100,14 +101,38 @@
             <form class="reply" name="reply" action="/index.cfm/main.displayblogpost/?blogpostid=#blogposted.blogpostid#" method="post" id="reply">
                 <fieldset>
                     <div class="row">
+                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <cfif not isNull(SESSION.BloggerID)>
+                                <label>Name:</label>
+                                <input class="form-control" type="text" id="txtNameComment" name="name" value="#blogposted.fullname#">
+                            <cfelse>    
+                                <label>Name: <span>*</span></label>
+                                <input class="form-control" type="text" id="txtNameComment" name="name" required>
+                            </cfif>
+                        </div>
+
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <cfif not isNull(SESSION.BloggerID)>
+                                <cfdump eval= SESSION.BloggerID>
+                                <cfabort>
+                                <label>Email:</label>
+                                <input class="form-control" type="email" id="txtEmailComment" name="email" value="#blogposted.email#">
+                            <cfelse>    
+                                <label>Email: <span>*</span></label>
+                                <input class="form-control" type="email" id="txtEmailComment" name="email" required>
+                            </cfif>
+                            <!--- <label>Email: <span>*</span></label>
+                            <input class="form-control" type="email" id="txtEmailComment" name="email" required> --->
+                        </div>
+
+                        <!--- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Name: <span>*</span></label>
                             <input class="form-control" type="text" id="txtNameComment" name="name" required>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        </div> --->
+                        <!--- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Email: <span>*</span></label>
                             <input class="form-control" type="email" id="txtEmailComment" name="email" required>
-                        </div>
+                        </div> --->
                     </div>
 
                     <div class="row">

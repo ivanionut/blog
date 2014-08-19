@@ -2217,7 +2217,8 @@ ol.commentlist li:first-child {
 
 .avatar img {
     float: left;
-    max-width: 60px;
+    max-width: 30px;
+
 }
 
 .comment-des p {
@@ -2229,8 +2230,8 @@ ol.commentlist li:first-child {
     float: left;
     background: #fff;
     color: #888;
-    margin: -70px 0 0 100px;
-    padding: 6px 22px 22px;
+  margin: -70px 70px 30px 50px;
+padding: 6px 12px 12px;
 }
 
 
@@ -2239,8 +2240,8 @@ ol.commentlist li:first-child {
     position: absolute;
     display: block;
     content: "";
-    margin-left: 93px;
-    margin-top: 25px;
+    margin-left: 43px;
+    /*margin-top: 25px;*/
     width: 15px;
     height: 15px;
     background-color: #fff;
@@ -2270,8 +2271,8 @@ ol.commentlist li:first-child {
 .comment-by {
     float: left;
     width: 100%;
-    padding-bottom: 8px;
-    padding-top: 5px;
+    /*padding-bottom: 8px;
+    padding-top: 5px;*/
 }
 
 .comment-by span.reply {

@@ -2,10 +2,10 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 <!--
-source:C:\RailoServer\webapps\blogathome\blog\model\user.cfc
-compilation-time:{ts '2014-08-15 09:49:41'}
+source:C:\RailoServer\webapps\blog\blog\model\user.cfc
+compilation-time:{ts '2014-08-13 11:36:33'}
 -->
-<class entity-name="user" lazy="true" node="blog.model.user" table="`user`">
+<class entity-name="user" lazy="true" node="blog.model.user" schema="blograsia" table="`user`">
 <id name="userID" type="integer">
 <column name="userID"/>
 <generator class="native"/>

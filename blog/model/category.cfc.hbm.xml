@@ -2,10 +2,10 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 <!--
-source:C:\RailoServer\webapps\blogathome\blog\model\category.cfc
-compilation-time:{ts '2014-08-15 09:49:41'}
+source:C:\RailoServer\webapps\blog\blog\model\category.cfc
+compilation-time:{ts '2014-08-13 11:36:33'}
 -->
-<class entity-name="category" lazy="true" node="blog.model.category" table="category">
+<class entity-name="category" lazy="true" node="blog.model.category" schema="blograsia" table="category">
 <id name="categoryID" type="integer">
 <column name="categoryID"/>
 <generator class="native"/>
@@ -16,7 +16,7 @@ compilation-time:{ts '2014-08-15 09:49:41'}
 <property name="description" type="text">
 <column name="description"/>
 </property>
-<bag name="blogposts" table="blogpost_category">
+<bag name="blogposts" schema="blograsia" table="blogpost_category">
 <key column="categoryID"/>
 <many-to-many column="blogpostID" entity-name="blogpost"/>
 </bag>

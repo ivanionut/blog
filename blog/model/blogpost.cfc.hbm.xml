@@ -2,10 +2,10 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 <!--
-source:C:\RailoServer\webapps\blogathome\blog\model\blogpost.cfc
-compilation-time:{ts '2014-08-15 09:49:41'}
+source:C:\RailoServer\webapps\blog\blog\model\blogpost.cfc
+compilation-time:{ts '2014-08-19 13:07:40'}
 -->
-<class entity-name="blogpost" lazy="true" node="blog.model.blogpost" table="blogpost">
+<class entity-name="blogpost" lazy="true" node="blog.model.blogpost" schema="blograsia" table="blogpost">
 <id name="blogpostID" type="integer">
 <column name="blogpostID"/>
 <generator class="native"/>
@@ -18,6 +18,9 @@ compilation-time:{ts '2014-08-15 09:49:41'}
 </property>
 <property name="context" type="text">
 <column name="context"/>
+</property>
+<property name="description" type="text">
+<column length="200" name="description"/>
 </property>
 <property name="status" type="integer">
 <column name="status"/>
@@ -36,7 +39,7 @@ compilation-time:{ts '2014-08-15 09:49:41'}
 <key column="blogpostID"/>
 <one-to-many entity-name="blogcomment"/>
 </bag>
-<bag name="categories" table="blogpost_category">
+<bag name="categories" schema="blograsia" table="blogpost_category">
 <key column="blogpostID"/>
 <many-to-many column="categoryID" entity-name="category"/>
 </bag>
