@@ -32,8 +32,8 @@ component output="false" displayname=""  {
 		FROM category c inner join blogpost_category bc on bc.categoryID = c.categoryID 
 		GROUP BY bc.blogpostID)bcc 
 		ON bcc.blogpostID = bp.blogpostID, user us 
-		WHERE bp.userID = us.userID"& conditionquery &" 
-		ORDER BY bp.status DESC, bp.created DESC");
+		WHERE bp.userID = us.userID and bp.status = '0'"& conditionquery &" 
+		ORDER BY bp.updated DESC");
 
 		var no=0;
 		if(isnull(rc.count)){
@@ -54,8 +54,8 @@ component output="false" displayname=""  {
 			FROM category c inner join blogpost_category bc on bc.categoryID = c.categoryID 
 			GROUP BY bc.blogpostID) bcc 
 		ON bcc.blogpostID = bp.blogpostID, user us 
-		WHERE bp.userID = us.userID"& conditionquery &" 
-		ORDER BY bp.status , bp.updated desc, bp.created desc limit "& rc.idpage &","& rc.limit);
+		WHERE bp.userID = us.userID and bp.status = '0'"& conditionquery &" 
+		ORDER BY bp.updated DESC, bp.created DESC limit "& rc.idpage &","& rc.limit);
 	}
 	
 	function login(struct rc) {
@@ -98,8 +98,11 @@ component output="false" displayname=""  {
 
 	function deletepost(struct rc) {
 		rc.blogpost=entityloadbyPK("blogpost",rc.blogpostid);
-		EntityDelete(rc.blogpost);
-		variables.fw.renderData("json",{success:true});
+		rc.blogpost.setStatus(1);
+		rc.blogpost.setUpdated(DateTimeFormat(Now(),"mmm d, yyyy HH:nn:ss"));
+		entitySave(rc.blogpost);
+		var messages = "Delete post successful !";
+		variables.fw.redirect("main.default",messages);
 	}
 	
 	
@@ -114,12 +117,12 @@ component output="false" displayname=""  {
 				LOCAL.blogpost=entityLoadByPK("blogpost",rc.blogpostid);
 				blogpost.setUpdated(DateTimeFormat(Now(),"mmm d, yyyy HH:nn:ss"));
 				blogpost.setUpdatedby(SESSION.bloggerName);
-				blogpost.setStatus(2);
 			}				
 			else{
 				LOCAL.blogpost=entityNew("blogpost");
 				blogpost.setCreated(DateTimeFormat(Now(),"mmm d, yyyy HH:nn:ss"));
-				blogpost.setStatus(3);
+				blogpost.setUpdated(DateTimeFormat(Now(),"mmm d, yyyy HH:nn:ss"));
+				blogpost.setStatus(0);
 			}
 			var arraylistcategorypostes = arrayNew(1);
 			var category = entityNew("category");
@@ -150,7 +153,7 @@ component output="false" displayname=""  {
 			GROUP_CONCAT(c.categoryID SEPARATOR ',') AS listcategoryids, COUNT(c.categoryID) AS numofcategory 
 			FROM category c INNER JOIN blogpost_category bc ON bc.categoryID = c.categoryID 
 			GROUP BY bc.blogpostID)bcc ON bcc.blogpostID = bp.blogpostID, user us 
-		WHERE bp.userID = us.userID and bp.blogpostID = "&LSParseNumber(blogpostid));
+		WHERE bp.userID = us.userID and bp.status = '0' and bp.blogpostID = "&LSParseNumber(blogpostid));
 	}
 
 
