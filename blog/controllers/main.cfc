@@ -108,7 +108,7 @@ component output="false" displayname=""  {
 		param name="rc.listcategories" default=entityLoad("category");
 		param name="URL.blogpostid" default="";
 		if(not isNull(rc.blogpostid))
-			 rc.blogpost = entityLoadByPK("blogpost",rc.blogpostid);
+			rc.blogpost = entityLoadByPK("blogpost",rc.blogpostid);
 		if(CGI.REQUEST_METHOD == "post"){
 			if(URL.blogpostid > 0){
 				LOCAL.blogpost=entityLoadByPK("blogpost",rc.blogpostid);
