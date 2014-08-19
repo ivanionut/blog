@@ -4,15 +4,17 @@
         <cfset blogpost.title = "Blog post title">
         <cfset blogpost.context = "Context of post">
         <cfset blogpost.listcategoryids = arrayNew(1)>
+        <cfset blogpost.description = "Context of post">
     <cfelse>
         <cfset blogpost.blogpostid = rc.blogpost.blogpostID>
         <cfset blogpost.title = rc.blogpost.title>
         <cfset blogpost.context = rc.blogpost.context>
         <cfset blogpost.listcategoryids = rc.blogpost.categories>
+        <cfset blogpost.description = rc.blogpost.description>
     </cfif>
     <div class="reply">
         <h3 class="title">Blog Post</h3>
-        <form class="reply" id="reply" method="post">
+        <form class="reply" id="reply" method="post" onsubmit="createDescription();">
             <fieldset>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -62,6 +64,9 @@
                         </div>
                     </div>
                 </cfif>
+
+                <input type="hidden" name="description" id="description" value="#blogpost.context#" />
+
             </fieldset>
 
             <button class="btn btn-2 btn-2c" type="submit">Post</button>
@@ -71,6 +76,22 @@
     </div>    
     <div class="blog-divider"></div>
 </cfoutput>
+
+<script type="text/javascript">
+function createDescription() {
+    //example as before, replace YOUR_TEXTAREA_ID
+    var html=CKEDITOR.instances.context.getSnapshot();
+    var dom=document.createElement("DIV");
+    dom.innerHTML=html;
+    var plain_text=(dom.textContent || dom.innerText);
+
+    var des=plain_text.substr(0,300);
+    document.getElementById("description").value=des.concat(" ...");
+
+    //return true, ok to submit the form
+    return true;
+}
+</script>
 
 <script>
     $(document).ready( function() {

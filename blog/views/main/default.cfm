@@ -70,7 +70,7 @@
 	            </div>
 	        </header>
 	        <div class="post-content" >
-	            <code>#listpostes.context#</code>
+	            #listpostes.description#
 	        </div>
 	    </article>
 	    <div class="blog-divider"></div>
