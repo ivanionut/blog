@@ -2570,4 +2570,6 @@ padding: 6px 12px 12px;
         padding-right: 30px !important;
     }
 }
-
+.read{
+    float: right;
+}

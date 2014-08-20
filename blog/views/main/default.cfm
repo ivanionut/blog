@@ -71,9 +71,13 @@
 	        </header>
 	        <div class="post-content" >
 	            #listpostes.description#
-	            <a class="moreLink" href="/index.cfm/main.displayblogpost/?blogpostid=#listpostes.blogpostid#">Read&nbsp;more
+	            <div class="read">
+	            	<a class="moreLink" href="/index.cfm/main.displayblogpost/?blogpostid=#listpostes.blogpostid#">
+	            		</br>Read&nbsp;more&nbsp;&rsaquo;&rsaquo;
 	            	<i class="icon-caret-right"></i>
-	            </a>
+	            	</a>
+	            </div>
+	           
 	        </div>
 	    </article>
 	    <div class="blog-divider"></div>

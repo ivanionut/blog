@@ -85,7 +85,7 @@ function createDescription() {
     dom.innerHTML=html;
     var plain_text=(dom.textContent || dom.innerText);
 
-    var des=plain_text.substr(0,300);
+    var des=plain_text.substr(0,1000);
     document.getElementById("description").value=des.concat(" ...");
 
     //return true, ok to submit the form
