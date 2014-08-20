@@ -14,7 +14,7 @@
     </cfif>
     <div class="reply">
         <h3 class="title">Blog Post</h3>
-        <form class="reply" id="reply" method="post" onsubmit="createDescription();">
+        <form class="reply" id="reply" method="post" onsubmit="return createDescription()">
             <fieldset>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -65,7 +65,7 @@
                     </div>
                 </cfif>
 
-                <input type="hidden" name="description" id="description" value="#blogpost.context#" />
+                <input type="hidden" name="description" id="description" value="#blogpost.description#" />
 
             </fieldset>
 
@@ -88,8 +88,14 @@ function createDescription() {
     var des=plain_text.substr(0,1000);
     document.getElementById("description").value=des.concat(" ...");
 
-    //return true, ok to submit the form
-    return true;
+    var count = $('#listcategoryids option:selected').length;
+
+    if (count == 0) {
+        alert('Post of category must be selected less one!');
+        return false;
+    }else{
+        return true;
+    }    
 }
 </script>
 
