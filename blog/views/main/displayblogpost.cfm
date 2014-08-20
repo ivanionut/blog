@@ -2,7 +2,7 @@
     <cfset blogposted = rc.blogposted>
     <cfset emailuser = QueryExecute("select us.email from user us where us.userID = #LSParseNumber(SESSION.BloggerID)#")>
         
-    <cfif (SESSION.BloggerID) gt 0> 
+    <!--- <cfif (SESSION.BloggerID) gt 0> 
         <cfset name = SESSION.bloggerName>
        
     <cfelse>
@@ -11,7 +11,7 @@
         <cfset blogpost.context = rc.blogpost.context>
         <cfset blogpost.listcategoryids = rc.blogpost.categories>
         <cfset blogpost.description = rc.blogpost.description>
-    </cfif>
+    </cfif> --->
     <script type="text/javascript">
     function checkDelete() {
         if(confirm("Are you sure you want delete it?")){
